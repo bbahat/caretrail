@@ -1,0 +1,692 @@
+{
+ "meta": {
+  "synthetic": true,
+  "reference_date": "2026-11-15"
+ },
+ "households": [
+  {
+   "id": "DEMO-1",
+   "label": "Al Mansouri family",
+   "national": true,
+   "insurance": "Thiqa",
+   "region": "Abu Dhabi City",
+   "preferred_language": "ar",
+   "preferred_channel": "app",
+   "story": "Three generations. Mariam manages the family's health in the app.",
+   "members": [
+    {
+     "id": "DEMO-1-01",
+     "household": "DEMO-1",
+     "role": "mother",
+     "kind": "adult",
+     "sex": "female",
+     "birth_date": "1988-03-12",
+     "employment": "employed",
+     "conditions": [],
+     "family_history": [
+      "cancer",
+      "diabetes"
+     ],
+     "parents_related": false,
+     "tobacco": {
+      "status": "never",
+      "types": [],
+      "pack_years": 0,
+      "water_pipe_years": 0,
+      "years_since_quit": null
+     },
+     "unwilling_colonoscopy_or_fit": false,
+     "consent": {
+      "program_screening": true,
+      "genomic": false,
+      "wearables": true,
+      "share_with_household": true
+     },
+     "genomic_findings": [],
+     "wearable": {
+      "steps_per_day": 4200,
+      "sleep_hours": 5.8,
+      "resting_hr": 74
+     },
+     "married": true,
+     "screening": {
+      "major": {
+       "last_done": "2022-10-04",
+       "modality": null,
+       "result": "normal",
+       "referral": null,
+       "declined_on": null
+      },
+      "oral": {
+       "last_done": "2025-12-02",
+       "modality": null,
+       "result": "normal",
+       "referral": null,
+       "declined_on": null
+      },
+      "cervical_hpv": {
+       "last_done": "2020-09-14",
+       "modality": null,
+       "result": "normal",
+       "referral": null,
+       "declined_on": null
+      },
+      "breast_cbe_gail": {
+       "last_done": null,
+       "modality": null,
+       "result": null,
+       "referral": null,
+       "declined_on": null
+      }
+     },
+     "engagement": {
+      "invites_3y": 2,
+      "responded_3y": 1,
+      "declined_12m": 0,
+      "no_show_3y": 1
+     },
+     "display_name": "Mariam"
+    },
+    {
+     "id": "DEMO-1-02",
+     "household": "DEMO-1",
+     "role": "father",
+     "kind": "adult",
+     "sex": "male",
+     "birth_date": "1981-06-02",
+     "employment": "employed",
+     "conditions": [
+      "high_cholesterol"
+     ],
+     "family_history": [
+      "heart_disease"
+     ],
+     "parents_related": false,
+     "tobacco": {
+      "status": "current",
+      "types": [
+       "shisha"
+      ],
+      "pack_years": 0,
+      "water_pipe_years": 22,
+      "years_since_quit": null
+     },
+     "unwilling_colonoscopy_or_fit": false,
+     "consent": {
+      "program_screening": true,
+      "genomic": true,
+      "wearables": false,
+      "share_with_household": true
+     },
+     "genomic_findings": [
+      "Familial hypercholesterolemia"
+     ],
+     "wearable": null,
+     "married": true,
+     "screening": {
+      "major": {
+       "last_done": "2026-10-20",
+       "modality": null,
+       "result": "abnormal",
+       "referral": {
+        "made": false,
+        "made_on": null,
+        "completed": false,
+        "completed_on": null
+       },
+       "declined_on": null
+      },
+      "vision": {
+       "last_done": null,
+       "modality": null,
+       "result": null,
+       "referral": null,
+       "declined_on": null
+      },
+      "oral": {
+       "last_done": "2024-03-11",
+       "modality": null,
+       "result": "normal",
+       "referral": null,
+       "declined_on": null
+      },
+      "colorectal": {
+       "last_done": "2025-09-20",
+       "modality": "fit",
+       "result": "normal",
+       "referral": null,
+       "declined_on": null
+      }
+     },
+     "engagement": {
+      "invites_3y": 2,
+      "responded_3y": 1,
+      "declined_12m": 0,
+      "no_show_3y": 1
+     },
+     "display_name": "Khalid"
+    },
+    {
+     "id": "DEMO-1-03",
+     "household": "DEMO-1",
+     "role": "grandparent",
+     "kind": "adult",
+     "sex": "male",
+     "birth_date": "1959-04-15",
+     "employment": "retired",
+     "conditions": [
+      "hypertension",
+      "diabetes"
+     ],
+     "family_history": [],
+     "parents_related": false,
+     "tobacco": {
+      "status": "former",
+      "types": [
+       "cigarettes"
+      ],
+      "pack_years": 35,
+      "water_pipe_years": 0,
+      "years_since_quit": 10
+     },
+     "unwilling_colonoscopy_or_fit": false,
+     "consent": {
+      "program_screening": true,
+      "genomic": false,
+      "wearables": false,
+      "share_with_household": true
+     },
+     "genomic_findings": [],
+     "wearable": null,
+     "married": true,
+     "screening": {
+      "major": {
+       "last_done": "2025-01-15",
+       "modality": null,
+       "result": "normal",
+       "referral": null,
+       "declined_on": null
+      },
+      "vision": {
+       "last_done": "2026-02-10",
+       "modality": null,
+       "result": "normal",
+       "referral": null,
+       "declined_on": null
+      },
+      "oral": {
+       "last_done": "2026-05-03",
+       "modality": null,
+       "result": "normal",
+       "referral": null,
+       "declined_on": null
+      },
+      "hearing_dementia_65_75": {
+       "last_done": "2025-06-21",
+       "modality": null,
+       "result": "normal",
+       "referral": null,
+       "declined_on": null
+      },
+      "dexa": {
+       "last_done": "2023-01-30",
+       "modality": null,
+       "result": "normal",
+       "referral": null,
+       "declined_on": null
+      },
+      "colorectal": {
+       "last_done": "2019-05-08",
+       "modality": "colonoscopy",
+       "result": "normal",
+       "referral": null,
+       "declined_on": null
+      },
+      "lung_ldct": {
+       "last_done": null,
+       "modality": null,
+       "result": null,
+       "referral": null,
+       "declined_on": null
+      },
+      "aaa": {
+       "last_done": null,
+       "modality": null,
+       "result": null,
+       "referral": null,
+       "declined_on": null
+      }
+     },
+     "engagement": {
+      "invites_3y": 2,
+      "responded_3y": 1,
+      "declined_12m": 0,
+      "no_show_3y": 1
+     },
+     "display_name": "Saeed",
+     "preferred_channel": "call"
+    },
+    {
+     "id": "DEMO-1-04",
+     "household": "DEMO-1",
+     "role": "child",
+     "kind": "child",
+     "sex": "female",
+     "birth_date": "2025-05-10",
+     "premature": false,
+     "newborn_hearing": "passed",
+     "conditions": [],
+     "consent": {
+      "program_screening": true,
+      "genomic": false,
+      "wearables": false,
+      "share_with_household": true
+     },
+     "wcv": {
+      "attended_months": [
+       1,
+       2,
+       4,
+       6,
+       9,
+       12,
+       15
+      ],
+      "results": {
+       "cbc": {
+        "hb_g_dl": 11.6,
+        "done_on": "2026-05-14",
+        "at_month": 12
+       }
+      }
+     },
+     "engagement": {
+      "invites_3y": 3,
+      "responded_3y": 3,
+      "declined_12m": 0,
+      "no_show_3y": 0
+     },
+     "display_name": "Salma"
+    },
+    {
+     "id": "DEMO-1-05",
+     "household": "DEMO-1",
+     "role": "child",
+     "kind": "child",
+     "sex": "male",
+     "birth_date": "2022-09-03",
+     "premature": false,
+     "newborn_hearing": "passed",
+     "conditions": [
+      "type1_diabetes"
+     ],
+     "consent": {
+      "program_screening": true,
+      "genomic": false,
+      "wearables": false,
+      "share_with_household": true
+     },
+     "wcv": {
+      "attended_months": [
+       1,
+       2,
+       4,
+       6,
+       9,
+       12,
+       15,
+       18,
+       24,
+       30,
+       36
+      ],
+      "results": {
+       "mchat_r_18": {
+        "score": 1,
+        "done_on": "2024-03-06"
+       },
+       "mchat_r_24": {
+        "score": 2,
+        "done_on": "2024-09-09"
+       },
+       "idaq_18": {
+        "positive": false,
+        "done_on": "2024-03-06"
+       },
+       "cbc": {
+        "hb_g_dl": 12.1,
+        "done_on": "2023-09-10",
+        "at_month": 12
+       }
+      }
+     },
+     "engagement": {
+      "invites_3y": 3,
+      "responded_3y": 3,
+      "declined_12m": 0,
+      "no_show_3y": 0
+     },
+     "display_name": "Omar"
+    }
+   ]
+  },
+  {
+   "id": "DEMO-2",
+   "label": "Khan family",
+   "national": false,
+   "insurance": "Basic",
+   "region": "Al Ain",
+   "preferred_language": "ur",
+   "preferred_channel": "whatsapp",
+   "story": "Expat family. Adults are outside IFHAS (Thiqa only); the toddler's referral is stuck.",
+   "members": [
+    {
+     "id": "DEMO-2-01",
+     "household": "DEMO-2",
+     "role": "mother",
+     "kind": "adult",
+     "sex": "female",
+     "birth_date": "1995-01-22",
+     "employment": "homemaker",
+     "conditions": [],
+     "family_history": [],
+     "parents_related": false,
+     "tobacco": {
+      "status": "never",
+      "types": [],
+      "pack_years": 0,
+      "water_pipe_years": 0,
+      "years_since_quit": null
+     },
+     "unwilling_colonoscopy_or_fit": false,
+     "consent": {
+      "program_screening": true,
+      "genomic": false,
+      "wearables": false,
+      "share_with_household": true
+     },
+     "genomic_findings": [],
+     "wearable": null,
+     "married": true,
+     "screening": {},
+     "engagement": {
+      "invites_3y": 2,
+      "responded_3y": 1,
+      "declined_12m": 0,
+      "no_show_3y": 1
+     },
+     "display_name": "Ayesha"
+    },
+    {
+     "id": "DEMO-2-02",
+     "household": "DEMO-2",
+     "role": "father",
+     "kind": "adult",
+     "sex": "male",
+     "birth_date": "1990-08-30",
+     "employment": "employed",
+     "conditions": [],
+     "family_history": [],
+     "parents_related": false,
+     "tobacco": {
+      "status": "never",
+      "types": [],
+      "pack_years": 0,
+      "water_pipe_years": 0,
+      "years_since_quit": null
+     },
+     "unwilling_colonoscopy_or_fit": false,
+     "consent": {
+      "program_screening": true,
+      "genomic": false,
+      "wearables": false,
+      "share_with_household": true
+     },
+     "genomic_findings": [],
+     "wearable": null,
+     "married": true,
+     "screening": {},
+     "engagement": {
+      "invites_3y": 2,
+      "responded_3y": 1,
+      "declined_12m": 0,
+      "no_show_3y": 1
+     },
+     "display_name": "Imran"
+    },
+    {
+     "id": "DEMO-2-03",
+     "household": "DEMO-2",
+     "role": "child",
+     "kind": "child",
+     "sex": "male",
+     "birth_date": "2024-11-12",
+     "premature": false,
+     "newborn_hearing": "passed",
+     "conditions": [],
+     "consent": {
+      "program_screening": true,
+      "genomic": false,
+      "wearables": false,
+      "share_with_household": true
+     },
+     "wcv": {
+      "attended_months": [
+       1,
+       2,
+       4,
+       6,
+       9,
+       12,
+       18
+      ],
+      "results": {
+       "mchat_r_18": {
+        "score": 5,
+        "done_on": "2026-05-15",
+        "referral": {
+         "made": true,
+         "made_on": "2026-05-20",
+         "completed": false,
+         "completed_on": null
+        }
+       },
+       "idaq_18": {
+        "positive": false,
+        "done_on": "2026-05-15"
+       },
+       "cbc": {
+        "hb_g_dl": 11.4,
+        "done_on": "2025-11-14",
+        "at_month": 12
+       }
+      }
+     },
+     "engagement": {
+      "invites_3y": 3,
+      "responded_3y": 3,
+      "declined_12m": 0,
+      "no_show_3y": 0
+     },
+     "display_name": "Zain"
+    }
+   ]
+  },
+  {
+   "id": "DEMO-3",
+   "label": "Al Dhaheri family",
+   "national": true,
+   "insurance": "Thiqa",
+   "region": "Al Dhafra",
+   "preferred_language": "ar",
+   "preferred_channel": "sms",
+   "story": "Young couple with a newborn. Noura chose to postpone one screening; that choice is respected.",
+   "members": [
+    {
+     "id": "DEMO-3-01",
+     "household": "DEMO-3",
+     "role": "mother",
+     "kind": "adult",
+     "sex": "female",
+     "birth_date": "1999-07-19",
+     "employment": "homemaker",
+     "conditions": [],
+     "family_history": [],
+     "parents_related": false,
+     "tobacco": {
+      "status": "never",
+      "types": [],
+      "pack_years": 0,
+      "water_pipe_years": 0,
+      "years_since_quit": null
+     },
+     "unwilling_colonoscopy_or_fit": false,
+     "consent": {
+      "program_screening": true,
+      "genomic": false,
+      "wearables": false,
+      "share_with_household": true
+     },
+     "genomic_findings": [],
+     "wearable": null,
+     "married": true,
+     "screening": {
+      "major": {
+       "last_done": "2024-09-02",
+       "modality": null,
+       "result": "normal",
+       "referral": null,
+       "declined_on": null
+      },
+      "oral": {
+       "last_done": "2025-03-17",
+       "modality": null,
+       "result": "normal",
+       "referral": null,
+       "declined_on": null
+      },
+      "cervical_pap": {
+       "last_done": null,
+       "modality": null,
+       "result": null,
+       "referral": null,
+       "declined_on": null
+      },
+      "breast_cbe": {
+       "last_done": "2023-02-08",
+       "modality": null,
+       "result": "normal",
+       "referral": null,
+       "declined_on": null
+      },
+      "female_repro": {
+       "last_done": "2023-06-12",
+       "modality": null,
+       "result": "normal",
+       "referral": null,
+       "declined_on": "2026-08-03"
+      }
+     },
+     "engagement": {
+      "invites_3y": 2,
+      "responded_3y": 1,
+      "declined_12m": 0,
+      "no_show_3y": 1
+     },
+     "display_name": "Noura"
+    },
+    {
+     "id": "DEMO-3-02",
+     "household": "DEMO-3",
+     "role": "father",
+     "kind": "adult",
+     "sex": "male",
+     "birth_date": "1997-02-11",
+     "employment": "employed",
+     "conditions": [],
+     "family_history": [],
+     "parents_related": false,
+     "tobacco": {
+      "status": "current",
+      "types": [
+       "midwakh_dokha"
+      ],
+      "pack_years": 0,
+      "water_pipe_years": 9,
+      "years_since_quit": null
+     },
+     "unwilling_colonoscopy_or_fit": false,
+     "consent": {
+      "program_screening": true,
+      "genomic": false,
+      "wearables": false,
+      "share_with_household": true
+     },
+     "genomic_findings": [],
+     "wearable": null,
+     "married": true,
+     "screening": {
+      "major": {
+       "last_done": null,
+       "modality": null,
+       "result": null,
+       "referral": null,
+       "declined_on": null
+      },
+      "male_repro": {
+       "last_done": null,
+       "modality": null,
+       "result": null,
+       "referral": null,
+       "declined_on": null
+      },
+      "oral": {
+       "last_done": "2022-11-30",
+       "modality": null,
+       "result": "normal",
+       "referral": null,
+       "declined_on": null
+      }
+     },
+     "engagement": {
+      "invites_3y": 2,
+      "responded_3y": 1,
+      "declined_12m": 0,
+      "no_show_3y": 1
+     },
+     "display_name": "Hamad"
+    },
+    {
+     "id": "DEMO-3-03",
+     "household": "DEMO-3",
+     "role": "child",
+     "kind": "child",
+     "sex": "female",
+     "birth_date": "2026-09-10",
+     "premature": false,
+     "newborn_hearing": "not_done",
+     "conditions": [],
+     "consent": {
+      "program_screening": true,
+      "genomic": false,
+      "wearables": false,
+      "share_with_household": true
+     },
+     "wcv": {
+      "attended_months": [
+       1
+      ],
+      "results": {}
+     },
+     "engagement": {
+      "invites_3y": 3,
+      "responded_3y": 3,
+      "declined_12m": 0,
+      "no_show_3y": 0
+     },
+     "display_name": "Fatima"
+    }
+   ]
+  }
+ ]
+}

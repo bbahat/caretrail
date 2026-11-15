@@ -1,0 +1,1003 @@
+{
+ "meta": {
+  "synthetic": true,
+  "reference_date": "2026-11-15",
+  "people": 4309,
+  "households": 1500,
+  "min_cell": 10,
+  "outreach_capacity_pct": 30,
+  "uplift_assumption_pct": 30
+ },
+ "care_gaps": {
+  "people_with_gaps": 2397,
+  "by_tier": {
+   "T1": 687,
+   "T2": 721,
+   "T3": 944,
+   "T4": 45
+  },
+  "people_with_open_loops": 534
+ },
+ "kpis": {
+  "ifhas": [
+   {
+    "package": "major",
+    "name": "Comprehensive Screening Major Package",
+    "eligible": 1805,
+    "participation_pct": 68.5,
+    "target_pct": 85,
+    "abnormal_pct": 27.9,
+    "referral_on_time_pct": 49.9,
+    "referral_target_pct": 100,
+    "abnormal_n": 345
+   },
+   {
+    "package": "vision",
+    "name": "Vision Screening (minor package)",
+    "eligible": 784,
+    "participation_pct": 68.5,
+    "target_pct": 85,
+    "abnormal_pct": 9.3,
+    "referral_on_time_pct": 48.0,
+    "referral_target_pct": 100,
+    "abnormal_n": 50
+   },
+   {
+    "package": "hearing_dementia_50_64",
+    "name": "Hearing and Dementia Screening",
+    "eligible": 121,
+    "participation_pct": 66.9,
+    "target_pct": 85,
+    "abnormal_pct": 11.1,
+    "referral_on_time_pct": null,
+    "referral_target_pct": 100,
+    "abnormal_n": null
+   },
+   {
+    "package": "hearing_dementia_65_75",
+    "name": "Hearing and Dementia Screening",
+    "eligible": 106,
+    "participation_pct": 80.2,
+    "target_pct": 85,
+    "abnormal_pct": 15.3,
+    "referral_on_time_pct": 61.5,
+    "referral_target_pct": 100,
+    "abnormal_n": 13
+   },
+   {
+    "package": "oral",
+    "name": "Oral Health Package",
+    "eligible": 1805,
+    "participation_pct": 67.3,
+    "target_pct": 85,
+    "abnormal_pct": 22.7,
+    "referral_on_time_pct": 50.0,
+    "referral_target_pct": 100,
+    "abnormal_n": 276
+   },
+   {
+    "package": "cervical_pap",
+    "name": "Cervical Cancer Screening (Pap)",
+    "eligible": 150,
+    "participation_pct": 66.0,
+    "target_pct": 85,
+    "abnormal_pct": 7.1,
+    "referral_on_time_pct": null,
+    "referral_target_pct": 100,
+    "abnormal_n": null
+   },
+   {
+    "package": "cervical_hpv",
+    "name": "Cervical Cancer Screening (HPV)",
+    "eligible": 627,
+    "participation_pct": 71.6,
+    "target_pct": 85,
+    "abnormal_pct": 10.9,
+    "referral_on_time_pct": 55.1,
+    "referral_target_pct": 100,
+    "abnormal_n": 49
+   },
+   {
+    "package": "breast_cbe",
+    "name": "Breast Cancer Screening (clinical exam)",
+    "eligible": 433,
+    "participation_pct": 66.3,
+    "target_pct": 85,
+    "abnormal_pct": 3.8,
+    "referral_on_time_pct": 72.7,
+    "referral_target_pct": 100,
+    "abnormal_n": 11
+   },
+   {
+    "package": "breast_cbe_gail",
+    "name": "Breast Cancer Screening (exam + risk)",
+    "eligible": 163,
+    "participation_pct": 66.3,
+    "target_pct": 85,
+    "abnormal_pct": 3.7,
+    "referral_on_time_pct": null,
+    "referral_target_pct": 100,
+    "abnormal_n": null
+   },
+   {
+    "package": "mammography",
+    "name": "Screening Mammography",
+    "eligible": 380,
+    "participation_pct": 72.6,
+    "target_pct": 85,
+    "abnormal_pct": 8.0,
+    "referral_on_time_pct": 36.4,
+    "referral_target_pct": 100,
+    "abnormal_n": 22
+   },
+   {
+    "package": "female_repro",
+    "name": "Female Reproductive Health Screening",
+    "eligible": 463,
+    "participation_pct": 61.6,
+    "target_pct": 85,
+    "abnormal_pct": 19.3,
+    "referral_on_time_pct": 38.2,
+    "referral_target_pct": 100,
+    "abnormal_n": 55
+   },
+   {
+    "package": "male_repro",
+    "name": "Male Reproductive Health Screening",
+    "eligible": 313,
+    "participation_pct": 56.9,
+    "target_pct": 85,
+    "abnormal_pct": 5.1,
+    "referral_on_time_pct": null,
+    "referral_target_pct": 100,
+    "abnormal_n": null
+   },
+   {
+    "package": "colorectal",
+    "name": "Colorectal Cancer Screening",
+    "eligible": 784,
+    "participation_pct": 71.6,
+    "target_pct": 85,
+    "abnormal_pct": 6.1,
+    "referral_on_time_pct": 50.0,
+    "referral_target_pct": 100,
+    "abnormal_n": 34
+   },
+   {
+    "package": "dexa",
+    "name": "Bone Mineral Density (DEXA)",
+    "eligible": 146,
+    "participation_pct": 71.9,
+    "target_pct": 85,
+    "abnormal_pct": 21.0,
+    "referral_on_time_pct": 63.6,
+    "referral_target_pct": 100,
+    "abnormal_n": 22
+   },
+   {
+    "package": "lung_ldct",
+    "name": "Lung Cancer Screening (low-dose CT)",
+    "eligible": 26,
+    "participation_pct": 80.8,
+    "target_pct": 85,
+    "abnormal_pct": 19.0,
+    "referral_on_time_pct": null,
+    "referral_target_pct": 100,
+    "abnormal_n": null
+   },
+   {
+    "package": "aaa",
+    "name": "Abdominal Aortic Aneurysm Screening",
+    "eligible": 17,
+    "participation_pct": 94.1,
+    "target_pct": 85,
+    "abnormal_pct": 0.0,
+    "referral_on_time_pct": null,
+    "referral_target_pct": 100,
+    "abnormal_n": null
+   }
+  ],
+  "wcv": {
+   "uptake_by_age": [
+    {
+     "month": 1,
+     "eligible": 1184,
+     "uptake_pct": 83.3
+    },
+    {
+     "month": 2,
+     "eligible": 1169,
+     "uptake_pct": 83.7
+    },
+    {
+     "month": 4,
+     "eligible": 1143,
+     "uptake_pct": 85.0
+    },
+    {
+     "month": 6,
+     "eligible": 1114,
+     "uptake_pct": 82.9
+    },
+    {
+     "month": 9,
+     "eligible": 1070,
+     "uptake_pct": 83.6
+    },
+    {
+     "month": 12,
+     "eligible": 1024,
+     "uptake_pct": 82.6
+    },
+    {
+     "month": 15,
+     "eligible": 976,
+     "uptake_pct": 83.4
+    },
+    {
+     "month": 18,
+     "eligible": 923,
+     "uptake_pct": 83.1
+    },
+    {
+     "month": 24,
+     "eligible": 824,
+     "uptake_pct": 82.9
+    },
+    {
+     "month": 30,
+     "eligible": 717,
+     "uptake_pct": 80.8
+    },
+    {
+     "month": 36,
+     "eligible": 599,
+     "uptake_pct": 84.0
+    },
+    {
+     "month": 48,
+     "eligible": 411,
+     "uptake_pct": 84.2
+    },
+    {
+     "month": 60,
+     "eligible": 186,
+     "uptake_pct": 86.6
+    },
+    {
+     "month": 72,
+     "eligible": 0,
+     "uptake_pct": null
+    }
+   ],
+   "mchat_r": {
+    "18": {
+     "attended": 786,
+     "uptake_pct": 100.0,
+     "target_pct": 100,
+     "abnormal_n": 129,
+     "referred_pct": 89.9,
+     "referred_target_pct": 100
+    },
+    "24": {
+     "attended": 688,
+     "uptake_pct": 100.0,
+     "target_pct": 100,
+     "abnormal_n": 103,
+     "referred_pct": 90.3,
+     "referred_target_pct": 100
+    }
+   }
+  }
+ },
+ "model": {
+  "purpose": "Population outreach prioritisation only. Not shown to families; not a clinical decision.",
+  "type": "Logistic regression, standardised features",
+  "target": "Does not complete within 90 days of routine invitation",
+  "n_scored": 1773,
+  "n_insufficient_history": 624,
+  "auc": 0.588,
+  "brier": 0.244,
+  "ece": 0.026,
+  "calibration": [
+   {
+    "bin": "0.1-0.2",
+    "n": 6,
+    "mean_predicted": 0.18,
+    "observed": null
+   },
+   {
+    "bin": "0.2-0.3",
+    "n": 67,
+    "mean_predicted": 0.265,
+    "observed": 0.269
+   },
+   {
+    "bin": "0.3-0.4",
+    "n": 389,
+    "mean_predicted": 0.358,
+    "observed": 0.391
+   },
+   {
+    "bin": "0.4-0.5",
+    "n": 649,
+    "mean_predicted": 0.45,
+    "observed": 0.465
+   },
+   {
+    "bin": "0.5-0.6",
+    "n": 447,
+    "mean_predicted": 0.543,
+    "observed": 0.544
+   },
+   {
+    "bin": "0.6-0.7",
+    "n": 175,
+    "mean_predicted": 0.638,
+    "observed": 0.52
+   },
+   {
+    "bin": "0.7-0.8",
+    "n": 37,
+    "mean_predicted": 0.736,
+    "observed": 0.757
+   },
+   {
+    "bin": "0.8-0.9",
+    "n": 3,
+    "mean_predicted": 0.812,
+    "observed": null
+   }
+  ],
+  "coefficients": [
+   {
+    "feature": "young_children",
+    "label": "Number of young children in household",
+    "coef": 0.167
+   },
+   {
+    "feature": "al_dhafra",
+    "label": "Lives in Al Dhafra",
+    "coef": 0.15
+   },
+   {
+    "feature": "male",
+    "label": "Male",
+    "coef": 0.132
+   },
+   {
+    "feature": "chronic",
+    "label": "Has a chronic condition",
+    "coef": -0.128
+   },
+   {
+    "feature": "response_rate",
+    "label": "Past invitation response rate",
+    "coef": -0.122
+   },
+   {
+    "feature": "ch_sms",
+    "label": "Prefers SMS",
+    "coef": 0.115
+   },
+   {
+    "feature": "lang_unsupported",
+    "label": "Preferred language not Arabic or English",
+    "coef": 0.098
+   },
+   {
+    "feature": "ch_whatsapp",
+    "label": "Prefers WhatsApp",
+    "coef": 0.097
+   },
+   {
+    "feature": "ch_call",
+    "label": "Prefers phone calls",
+    "coef": 0.095
+   },
+   {
+    "feature": "child",
+    "label": "Child (Well-Child programme)",
+    "coef": -0.089
+   },
+   {
+    "feature": "age_18_29",
+    "label": "Aged 18-29",
+    "coef": 0.081
+   },
+   {
+    "feature": "employed",
+    "label": "In employment",
+    "coef": 0.075
+   },
+   {
+    "feature": "retired",
+    "label": "Retired",
+    "coef": -0.065
+   },
+   {
+    "feature": "declined_12m",
+    "label": "Declines in the past 12 months",
+    "coef": 0.064
+   },
+   {
+    "feature": "age_60_75",
+    "label": "Aged 60-75",
+    "coef": -0.058
+   },
+   {
+    "feature": "al_ain",
+    "label": "Lives in Al Ain",
+    "coef": 0.041
+   },
+   {
+    "feature": "thiqa",
+    "label": "Thiqa member",
+    "coef": -0.03
+   },
+   {
+    "feature": "no_show_3y",
+    "label": "Missed appointments in 3 years",
+    "coef": 0.024
+   }
+  ],
+  "validation": "5-fold cross-validated predictions on synthetic data"
+ },
+ "simulation": [
+  {
+   "policy": "Broad invitation (random order)",
+   "contacted": 719,
+   "expected_completions": 1373,
+   "clinically_weighted": 2559,
+   "expected_open_loops_closed": 302,
+   "gain_vs_broad": 0,
+   "weighted_gain_vs_broad": 0,
+   "open_loops_gain_vs_broad": 0
+  },
+  {
+   "policy": "Age-first rule (oldest first)",
+   "contacted": 719,
+   "expected_completions": 1368,
+   "clinically_weighted": 2567,
+   "expected_open_loops_closed": 304,
+   "gain_vs_broad": -5,
+   "weighted_gain_vs_broad": 8,
+   "open_loops_gain_vs_broad": 2
+  },
+  {
+   "policy": "Clinical tier only (no model)",
+   "contacted": 719,
+   "expected_completions": 1373,
+   "clinically_weighted": 2666,
+   "expected_open_loops_closed": 355,
+   "gain_vs_broad": 0,
+   "weighted_gain_vs_broad": 107,
+   "open_loops_gain_vs_broad": 53
+  },
+  {
+   "policy": "CareTrail prioritisation",
+   "contacted": 719,
+   "expected_completions": 1376,
+   "clinically_weighted": 2670,
+   "expected_open_loops_closed": 355,
+   "gain_vs_broad": 3,
+   "weighted_gain_vs_broad": 111,
+   "open_loops_gain_vs_broad": 53
+  }
+ ],
+ "safeguards": [
+  {
+   "segment": "Sex (adults)",
+   "group": "female",
+   "n": 821,
+   "recommended_pct": 37.9,
+   "baseline_uptake_pct": 54.9,
+   "false_positive_pct": 40.6,
+   "false_negative_pct": 65.4,
+   "calibration_gap_pts": -0.1,
+   "needs_local_recalibration": false,
+   "suppressed": false
+  },
+  {
+   "segment": "Sex (adults)",
+   "group": "male",
+   "n": 664,
+   "recommended_pct": 36.4,
+   "baseline_uptake_pct": 47.4,
+   "false_positive_pct": 32.4,
+   "false_negative_pct": 59.9,
+   "calibration_gap_pts": -2.4,
+   "needs_local_recalibration": false,
+   "suppressed": false
+  },
+  {
+   "segment": "Age band",
+   "group": "18-29",
+   "n": 382,
+   "recommended_pct": 34.0,
+   "baseline_uptake_pct": 46.1,
+   "false_positive_pct": 31.8,
+   "false_negative_pct": 64.1,
+   "calibration_gap_pts": -2.9,
+   "needs_local_recalibration": false,
+   "suppressed": false
+  },
+  {
+   "segment": "Age band",
+   "group": "30-44",
+   "n": 719,
+   "recommended_pct": 34.4,
+   "baseline_uptake_pct": 50.9,
+   "false_positive_pct": 33.9,
+   "false_negative_pct": 65.2,
+   "calibration_gap_pts": -1.7,
+   "needs_local_recalibration": false,
+   "suppressed": false
+  },
+  {
+   "segment": "Age band",
+   "group": "45-59",
+   "n": 266,
+   "recommended_pct": 39.5,
+   "baseline_uptake_pct": 53.8,
+   "false_positive_pct": 42.0,
+   "false_negative_pct": 63.4,
+   "calibration_gap_pts": 0.2,
+   "needs_local_recalibration": false,
+   "suppressed": false
+  },
+  {
+   "segment": "Age band",
+   "group": "60-75",
+   "n": 118,
+   "recommended_pct": 60.2,
+   "baseline_uptake_pct": 68.6,
+   "false_positive_pct": 55.6,
+   "false_negative_pct": 29.7,
+   "calibration_gap_pts": 5.2,
+   "needs_local_recalibration": true,
+   "suppressed": false
+  },
+  {
+   "segment": "Age band",
+   "group": "child",
+   "n": 912,
+   "recommended_pct": 18.2,
+   "baseline_uptake_pct": 52.2,
+   "false_positive_pct": 16.2,
+   "false_negative_pct": 79.6,
+   "calibration_gap_pts": -1.1,
+   "needs_local_recalibration": false,
+   "suppressed": false
+  },
+  {
+   "segment": "Nationality",
+   "group": "Expatriate",
+   "n": 397,
+   "recommended_pct": 20.4,
+   "baseline_uptake_pct": 47.9,
+   "false_positive_pct": 17.9,
+   "false_negative_pct": 77.3,
+   "calibration_gap_pts": -2.7,
+   "needs_local_recalibration": false,
+   "suppressed": false
+  },
+  {
+   "segment": "Nationality",
+   "group": "UAE national",
+   "n": 2000,
+   "recommended_pct": 31.9,
+   "baseline_uptake_pct": 52.6,
+   "false_positive_pct": 31.2,
+   "false_negative_pct": 67.3,
+   "calibration_gap_pts": -0.8,
+   "needs_local_recalibration": false,
+   "suppressed": false
+  },
+  {
+   "segment": "Region",
+   "group": "Abu Dhabi City",
+   "n": 1348,
+   "recommended_pct": 30.0,
+   "baseline_uptake_pct": 53.6,
+   "false_positive_pct": 30.0,
+   "false_negative_pct": 69.9,
+   "calibration_gap_pts": -1.1,
+   "needs_local_recalibration": false,
+   "suppressed": false
+  },
+  {
+   "segment": "Region",
+   "group": "Al Ain",
+   "n": 772,
+   "recommended_pct": 29.7,
+   "baseline_uptake_pct": 52.5,
+   "false_positive_pct": 26.7,
+   "false_negative_pct": 67.0,
+   "calibration_gap_pts": -0.1,
+   "needs_local_recalibration": false,
+   "suppressed": false
+  },
+  {
+   "segment": "Region",
+   "group": "Al Dhafra",
+   "n": 277,
+   "recommended_pct": 30.7,
+   "baseline_uptake_pct": 41.2,
+   "false_positive_pct": 32.5,
+   "false_negative_pct": 70.6,
+   "calibration_gap_pts": -4.4,
+   "needs_local_recalibration": false,
+   "suppressed": false
+  },
+  {
+   "segment": "Preferred language",
+   "group": "Arabic",
+   "n": 1804,
+   "recommended_pct": 31.4,
+   "baseline_uptake_pct": 52.4,
+   "false_positive_pct": 30.9,
+   "false_negative_pct": 68.0,
+   "calibration_gap_pts": -1.0,
+   "needs_local_recalibration": false,
+   "suppressed": false
+  },
+  {
+   "segment": "Preferred language",
+   "group": "English",
+   "n": 516,
+   "recommended_pct": 25.0,
+   "baseline_uptake_pct": 52.9,
+   "false_positive_pct": 24.5,
+   "false_negative_pct": 74.5,
+   "calibration_gap_pts": -0.2,
+   "needs_local_recalibration": false,
+   "suppressed": false
+  },
+  {
+   "segment": "Preferred language",
+   "group": "Other",
+   "n": 77,
+   "recommended_pct": 29.9,
+   "baseline_uptake_pct": 31.2,
+   "false_positive_pct": 12.5,
+   "false_negative_pct": 62.3,
+   "calibration_gap_pts": -9.7,
+   "needs_local_recalibration": true,
+   "suppressed": false
+  }
+ ],
+ "queue": [
+  {
+   "pseudonym": "P-56398",
+   "tier": 1,
+   "gaps": [
+    "major"
+   ],
+   "predicted_noncompletion_pct": 78,
+   "drivers": [
+    {
+     "label": "Lives in Al Dhafra",
+     "effect": 0.413
+    },
+    {
+     "label": "Male",
+     "effect": 0.218
+    },
+    {
+     "label": "Past invitation response rate",
+     "effect": 0.206
+    }
+   ],
+   "insufficient_history": false,
+   "suggested_channel": "sms",
+   "suggested_language": "ar",
+   "interpreter_needed": false
+  },
+  {
+   "pseudonym": "P-81025",
+   "tier": 1,
+   "gaps": [
+    "major"
+   ],
+   "predicted_noncompletion_pct": 74,
+   "drivers": [
+    {
+     "label": "Lives in Al Dhafra",
+     "effect": 0.413
+    },
+    {
+     "label": "Prefers phone calls",
+     "effect": 0.3
+    },
+    {
+     "label": "Male",
+     "effect": 0.218
+    }
+   ],
+   "insufficient_history": false,
+   "suggested_channel": "call",
+   "suggested_language": "ar",
+   "interpreter_needed": false
+  },
+  {
+   "pseudonym": "P-50124",
+   "tier": 1,
+   "gaps": [
+    "cbc",
+    "wcv_48",
+    "wcv_missed"
+   ],
+   "predicted_noncompletion_pct": 73,
+   "drivers": [
+    {
+     "label": "Preferred language not Arabic or English",
+     "effect": 0.54
+    },
+    {
+     "label": "Past invitation response rate",
+     "effect": 0.206
+    },
+    {
+     "label": "Prefers SMS",
+     "effect": 0.19
+    }
+   ],
+   "insufficient_history": false,
+   "suggested_channel": "sms",
+   "suggested_language": "tl",
+   "interpreter_needed": true
+  },
+  {
+   "pseudonym": "P-40506",
+   "tier": 1,
+   "gaps": [
+    "cbc",
+    "wcv_missed"
+   ],
+   "predicted_noncompletion_pct": 73,
+   "drivers": [
+    {
+     "label": "Preferred language not Arabic or English",
+     "effect": 0.54
+    },
+    {
+     "label": "Lives in Al Dhafra",
+     "effect": 0.413
+    },
+    {
+     "label": "Prefers phone calls",
+     "effect": 0.3
+    }
+   ],
+   "insufficient_history": false,
+   "suggested_channel": "call",
+   "suggested_language": "tl",
+   "interpreter_needed": true
+  },
+  {
+   "pseudonym": "P-70235",
+   "tier": 1,
+   "gaps": [
+    "major",
+    "male_repro",
+    "oral"
+   ],
+   "predicted_noncompletion_pct": 73,
+   "drivers": [
+    {
+     "label": "Male",
+     "effect": 0.218
+    },
+    {
+     "label": "Prefers WhatsApp",
+     "effect": 0.192
+    },
+    {
+     "label": "Aged 18-29",
+     "effect": 0.188
+    }
+   ],
+   "insufficient_history": false,
+   "suggested_channel": "whatsapp",
+   "suggested_language": "ar",
+   "interpreter_needed": false
+  },
+  {
+   "pseudonym": "P-29044",
+   "tier": 1,
+   "gaps": [
+    "major"
+   ],
+   "predicted_noncompletion_pct": 73,
+   "drivers": [
+    {
+     "label": "Number of young children in household",
+     "effect": 0.322
+    },
+    {
+     "label": "Prefers phone calls",
+     "effect": 0.3
+    },
+    {
+     "label": "Male",
+     "effect": 0.218
+    }
+   ],
+   "insufficient_history": false,
+   "suggested_channel": "call",
+   "suggested_language": "ar",
+   "interpreter_needed": false
+  },
+  {
+   "pseudonym": "P-96875",
+   "tier": 1,
+   "gaps": [
+    "major",
+    "oral"
+   ],
+   "predicted_noncompletion_pct": 72,
+   "drivers": [
+    {
+     "label": "Lives in Al Dhafra",
+     "effect": 0.413
+    },
+    {
+     "label": "Male",
+     "effect": 0.218
+    },
+    {
+     "label": "Prefers SMS",
+     "effect": 0.19
+    }
+   ],
+   "insufficient_history": false,
+   "suggested_channel": "sms",
+   "suggested_language": "ar",
+   "interpreter_needed": false
+  },
+  {
+   "pseudonym": "P-60027",
+   "tier": 1,
+   "gaps": [
+    "cbc",
+    "wcv_60",
+    "wcv_missed"
+   ],
+   "predicted_noncompletion_pct": 71,
+   "drivers": [
+    {
+     "label": "Preferred language not Arabic or English",
+     "effect": 0.54
+    },
+    {
+     "label": "Prefers phone calls",
+     "effect": 0.3
+    },
+    {
+     "label": "Declines in the past 12 months",
+     "effect": 0.258
+    }
+   ],
+   "insufficient_history": false,
+   "suggested_channel": "call",
+   "suggested_language": "tl",
+   "interpreter_needed": true
+  },
+  {
+   "pseudonym": "P-70739",
+   "tier": 1,
+   "gaps": [
+    "female_repro",
+    "major"
+   ],
+   "predicted_noncompletion_pct": 71,
+   "drivers": [
+    {
+     "label": "Lives in Al Dhafra",
+     "effect": 0.413
+    },
+    {
+     "label": "Aged 18-29",
+     "effect": 0.188
+    },
+    {
+     "label": "Past invitation response rate",
+     "effect": 0.116
+    }
+   ],
+   "insufficient_history": false,
+   "suggested_channel": "app",
+   "suggested_language": "ar",
+   "interpreter_needed": false
+  },
+  {
+   "pseudonym": "P-51245",
+   "tier": 1,
+   "gaps": [
+    "major",
+    "oral"
+   ],
+   "predicted_noncompletion_pct": 71,
+   "drivers": [
+    {
+     "label": "Lives in Al Dhafra",
+     "effect": 0.413
+    },
+    {
+     "label": "Male",
+     "effect": 0.218
+    },
+    {
+     "label": "Past invitation response rate",
+     "effect": 0.206
+    }
+   ],
+   "insufficient_history": false,
+   "suggested_channel": "app",
+   "suggested_language": "en",
+   "interpreter_needed": false
+  },
+  {
+   "pseudonym": "P-99889",
+   "tier": 1,
+   "gaps": [
+    "major",
+    "oral"
+   ],
+   "predicted_noncompletion_pct": 70,
+   "drivers": [
+    {
+     "label": "Lives in Al Dhafra",
+     "effect": 0.413
+    },
+    {
+     "label": "Male",
+     "effect": 0.218
+    },
+    {
+     "label": "Prefers WhatsApp",
+     "effect": 0.192
+    }
+   ],
+   "insufficient_history": false,
+   "suggested_channel": "whatsapp",
+   "suggested_language": "ar",
+   "interpreter_needed": false
+  },
+  {
+   "pseudonym": "P-33221",
+   "tier": 1,
+   "gaps": [
+    "mchat_18",
+    "wcv_missed"
+   ],
+   "predicted_noncompletion_pct": 69,
+   "drivers": [
+    {
+     "label": "Lives in Al Dhafra",
+     "effect": 0.413
+    },
+    {
+     "label": "Prefers WhatsApp",
+     "effect": 0.192
+    },
+    {
+     "label": "Number of young children in household",
+     "effect": 0.145
+    }
+   ],
+   "insufficient_history": false,
+   "suggested_channel": "whatsapp",
+   "suggested_language": "ar",
+   "interpreter_needed": false
+  }
+ ],
+ "assumptions": [
+  "All data are synthetic; prevalences are illustrative, not estimates of the Abu Dhabi population.",
+  "Enhanced outreach (personal contact in the preferred language and channel, with booking) is assumed to remove 30% of non-completion.",
+  "Outreach capacity is fixed at 30% of people with care gaps for every policy.",
+  "Cells with fewer than 10 people are suppressed; people without invitation history are not scored by the model.",
+  "Clinical weights: open loop or recall 3, higher-priority overdue 2, other overdue or due 1."
+ ]
+}

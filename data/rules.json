@@ -1,0 +1,175 @@
+{
+  "meta": {
+    "description": "CareTrail screening rules, extracted from two public Department of Health - Abu Dhabi standards. Every rule cites its source section. Prototype use only; not a clinical decision tool.",
+    "sources": {
+      "IFHAS": "Standard for the Provision of the Periodic Comprehensive Screening Program for Adults - IFHAS, DoH/SD/ADPHC-CHS/IFHAS/V10/2025, July 2025",
+      "WCV": "Standard for Well-Child Visits, DOH/WCV/SD/10/2025, V10, December 2025"
+    },
+    "assumptions": [
+      "A package is 'due' from the date its interval elapses and 'overdue' 90 days after that (CareTrail assumption; the standards do not define a grace window).",
+      "A Well-Child visit is 'due' from its scheduled age until the next scheduled age, and 'missed' after that (CareTrail assumption).",
+      "Colorectal screening is satisfied by any current modality: FIT (1 y), colonoscopy (10 y) or liquid biopsy (3 y, restricted eligibility).",
+      "The childhood immunization schedule is set by a separate DoH/ADPHC circular (No. 39/2024) and is not encoded here."
+    ]
+  },
+
+  "ifhas": {
+    "eligibility": { "insurance": "Thiqa", "min_age": 18, "program_age_range": [18, 75], "source": "IFHAS 4.5" },
+    "packages": [
+      { "id": "major", "name": "Comprehensive Screening Major Package", "sex": "any", "age": [18, 75], "interval_years": 3,
+        "components": ["IFHAS Health Questionnaire", "Weight", "Height", "BMI", "Waist circumference / waist-hip ratio", "Blood pressure", "Consultation", "PHQ-9", "GAD-7", "Physical exam", "Random blood sugar", "HbA1c", "Lipid panel", "Serum creatinine", "CBC"],
+        "note": "Listed separately for 18-39, 40-64 and 65-75 with identical contents and frequency.", "source": "IFHAS App. 7" },
+      { "id": "vision", "name": "Vision Screening (minor package)", "sex": "any", "age": [40, 75], "interval_years": 1,
+        "components": ["Snellen visual acuity", "Retinal imaging", "Consultation + dilated fundus examination by ophthalmologist"], "source": "IFHAS App. 7" },
+      { "id": "hearing_dementia_50_64", "name": "Hearing and Dementia Screening", "sex": "any", "age": [50, 64], "interval_years": 3,
+        "components": ["Consultation + MoCA", "Pure tone audiometry"], "source": "IFHAS App. 7" },
+      { "id": "hearing_dementia_65_75", "name": "Hearing and Dementia Screening", "sex": "any", "age": [65, 75], "interval_years": 1,
+        "components": ["Consultation + MoCA", "Pure tone audiometry"], "source": "IFHAS App. 7" },
+      { "id": "oral", "name": "Oral Health Package", "sex": "any", "age": [18, 75], "interval_years": 1,
+        "components": ["Complete examination, permanent dentition", "Oral hygiene instruction"], "source": "IFHAS App. 7" },
+      { "id": "cervical_pap", "name": "Cervical Cancer Screening (Pap)", "sex": "female", "age": [25, 29], "interval_years": 3,
+        "components": ["Consultation", "Pap smear"], "source": "IFHAS App. 7" },
+      { "id": "cervical_hpv", "name": "Cervical Cancer Screening (HPV)", "sex": "female", "age": [30, 65], "interval_years": 5,
+        "components": ["HPV test only"], "source": "IFHAS App. 7" },
+      { "id": "breast_cbe", "name": "Breast Cancer Screening (clinical exam)", "sex": "female", "age": [20, 34], "interval_years": 3,
+        "components": ["Consultation and clinical breast exam"], "source": "IFHAS App. 7" },
+      { "id": "breast_cbe_gail", "name": "Breast Cancer Screening (exam + risk)", "sex": "female", "age": [35, 39], "interval_years": 3,
+        "components": ["Consultation and clinical breast exam", "Gail model risk assessment"], "source": "IFHAS App. 7" },
+      { "id": "mammography", "name": "Screening Mammography", "sex": "female", "age": [40, 75], "interval_years": 2,
+        "components": ["Consultation", "Mammography"], "source": "IFHAS App. 7" },
+      { "id": "female_repro", "name": "Female Reproductive Health Screening", "sex": "female", "age": [20, 35], "interval_years": 3,
+        "components": ["Consultation", "Female Reproductive Health Questionnaire (FRHQ)", "AMH test"],
+        "abnormal_rule": "Any FRHQ 'Yes' -> gynecologist evaluation; abnormal AMH -> OB/GYN referral; if both abnormal follow the AMH pathway.",
+        "source": "IFHAS App. 3, App. 7" },
+      { "id": "male_repro", "name": "Male Reproductive Health Screening", "sex": "male", "age": [20, 35], "interval_years": 3,
+        "components": ["Consultation", "Male Reproductive Health Questionnaire (MRHQ)"],
+        "abnormal_rule": "Abnormal -> urology referral; smokers -> consider smoking cessation clinic.",
+        "source": "IFHAS App. 2, App. 7" },
+      { "id": "colorectal", "name": "Colorectal Cancer Screening", "sex": "any", "age": [40, 75],
+        "options": [
+          { "id": "fit", "test": "Fecal immunochemical test (FIT)", "interval_years": 1 },
+          { "id": "colonoscopy", "test": "Consultation and colonoscopy", "interval_years": 10 },
+          { "id": "liquid_biopsy", "test": "Targeted genomic sequence panel (liquid biopsy)", "interval_years": 3,
+            "inclusion": ["Unwilling to have a colonoscopy or FIT"],
+            "exclusion": ["Personal history of colorectal cancer", "Known hereditary/germline colorectal cancer risk (e.g. Lynch syndrome, FAP)", "Inflammatory bowel disease"] }
+        ], "source": "IFHAS App. 7" },
+      { "id": "dexa", "name": "Bone Mineral Density (DEXA)", "sex": "any", "age": [60, 75], "interval_years": 2,
+        "components": ["Bone mineral density test"], "source": "IFHAS App. 7" },
+      { "id": "lung_ldct", "name": "Lung Cancer Screening (low-dose CT)", "sex": "any", "age": [55, 75], "interval_years": 1,
+        "requires_high_risk": true,
+        "high_risk_criteria": [
+          "30 pack-year smoking history, and/or quit less than 15 years ago",
+          "20 pack-year history and/or quit less than 15 years ago, plus one additional risk factor",
+          "20-year history of water pipe (shisha), dokha, medwakh or other smoked tobacco"
+        ], "source": "IFHAS App. 7" },
+      { "id": "aaa", "name": "Abdominal Aortic Aneurysm Screening", "sex": "male", "age": [65, 75], "once_in_lifetime": true,
+        "requires": "Ever smoked", "components": ["Abdominal ultrasound"], "source": "IFHAS App. 7" }
+    ],
+    "referral_pathway": {
+      "Snellen / retinal imaging / fundus": "Ophthalmologist",
+      "Pure tone audiometry": "ENT",
+      "PHQ-9 / GAD-7": "Psychiatrist, psychologist or family physician with mental health privilege",
+      "MoCA": "Neurologist or geriatrician",
+      "FIT / colonoscopy / liquid biopsy": "Gastroenterologist",
+      "Pap / HPV": "Gynecologist",
+      "Mammography / Gail model": "Family medicine, gynecologist, medical oncology or breast surgeon",
+      "Clinical breast exam": "Family physician or gynecologist",
+      "FRHQ": "Gynecologist",
+      "MRHQ": "Urologist or endocrinologist",
+      "Bone mineral density": "Endocrinologist or family physician",
+      "Abdominal ultrasound (AAA)": "Vascular surgeon",
+      "Chest CT": "Pulmonologist",
+      "Dental examination": "Dentist",
+      "Random blood sugar / HbA1c": "GP, family physician, internal medicine or endocrinologist",
+      "Lipid panel / blood pressure": "GP, family physician, internal medicine or cardiologist",
+      "Serum creatinine": "GP, family physician, internal medicine or nephrologist",
+      "CBC": "Family physician, internal medicine or hematologist",
+      "note": "General recommendation only; the final decision rests with the clinician based on severity and the participant's overall condition.",
+      "source": "IFHAS App. 8"
+    },
+    "closed_loop_timelines": {
+      "results_communicated_within_days_of_initial_visit": 10,
+      "journey_completed_and_reported_within_days": 15,
+      "abnormal_referral_within_working_days_of_results": 15,
+      "abnormal_results_discussed_in_person": true,
+      "source": "IFHAS 4.9.2, 4.11.4.3, App. 9"
+    },
+    "invitation_system": "Invitations for first screening, rescreening, and recall for positive and insufficient results (IFHAS 4.7.1); appointment reminders to improve coverage and uptake (IFHAS 4.2.13).",
+    "preconception_prompt": "Married women of childbearing age: ask about plans to conceive and consider a preconception clinic referral (IFHAS 4.8.2.3).",
+    "education_material_rule": "Providers must use ADPHC-developed educational material, coordinate campaigns with ADPHC, and link to the ADPHC website instead of writing their own screening information (IFHAS 4.10.4).",
+    "kpis": [
+      { "id": "participation_rate", "definition": "Eligible registered individuals who completed screening / eligible registered individuals, per package per quarter", "target": ">85%" },
+      { "id": "abnormal_findings_rate", "definition": "Participants with abnormal findings / participants who completed the package, per quarter", "target": null },
+      { "id": "abnormal_referral_rate", "definition": "Participants with abnormal findings referred within 15 working days / participants with abnormal findings", "target": "100%" }
+    ],
+    "kpi_source": "IFHAS App. 9",
+    "questionnaire_fields": {
+      "demographics": ["date_of_birth", "sex", "residence_region", "education", "employment"],
+      "personal_history": ["hypertension", "diabetes", "high_cholesterol", "obesity", "heart_disease", "stroke", "cancer", "depression", "osteoporosis", "asthma", "copd"],
+      "family_history": ["hypertension", "diabetes", "heart_disease", "stroke", "depression", "cancer", "osteoporosis"],
+      "consanguinity": "Are your parents related to each other?",
+      "tobacco": ["cigarettes", "e_cigarettes", "midwakh_dokha", "shisha", "chewable_tobacco", "age_started", "passive_smoking_home", "passive_smoking_work"],
+      "lifestyle": ["fruit_veg_frequency", "junk_food_frequency", "sugary_drinks_frequency", "active_days_per_week", "walking_days_per_week", "sleep_hours"],
+      "source": "IFHAS App. 1"
+    }
+  },
+
+  "wcv": {
+    "age_range_months": [1, 72],
+    "schedule_months": [1, 2, 4, 6, 9, 12, 15, 18, 24, 30, 36, 48, 60, 72],
+    "schedule_source": "WCV 3.2.3",
+    "components": [
+      { "id": "growth", "name": "Growth measurement, WHO z-scores", "months": "all", "source": "WCV 3.8.4, App. 1" },
+      { "id": "head_circumference", "name": "Head circumference", "months": [1, 2, 4, 6, 9, 12, 15, 18, 24], "source": "WCV 3.8.1.5" },
+      { "id": "development", "name": "Developmental surveillance (4 domains)", "months": "all", "source": "WCV 3.8.5, App. 6" },
+      { "id": "vision", "name": "Vision screening (age-specific tests)", "months": "all", "source": "WCV 3.4, App. 1" },
+      { "id": "ddh_maneuvers", "name": "Hip exam: Ortolani and Barlow", "months": [1, 2, 4], "source": "WCV 3.5.4" },
+      { "id": "ddh_signs", "name": "Hip exam: abduction, limb length, skin folds", "months": [6, 9, 12], "source": "WCV 3.5.5" },
+      { "id": "hearing_infant", "name": "Hearing test if missed or failed at birth", "months": [1, 2], "conditional": "newborn hearing screen not done or failed", "source": "WCV 3.3.4" },
+      { "id": "hearing_pta", "name": "Hearing test (pure tone audiometry)", "months": [48, 60, 72], "source": "WCV 3.3.4, App. 1" },
+      { "id": "cbc", "name": "Anemia screening (CBC)", "months": [12], "catch_up_months": [15, 18], "source": "WCV 3.6.1" },
+      { "id": "oral", "name": "Oral screening by dentist or hygienist", "months": [12, 18, 24, 30, 36, 48, 60, 72], "source": "WCV 3.7.5" },
+      { "id": "blood_pressure", "name": "Blood pressure", "months": [36, 48, 60, 72],
+        "under_3_if": ["Type 1 or type 2 diabetes", "Chronic kidney disease", "Obesity", "Born prematurely", "Other conditions in WCV 3.8.3.2"], "source": "WCV 3.8.3" },
+      { "id": "mchat_r", "name": "Autism screening (M-CHAT-R)", "months": [18, 24], "source": "WCV 3.8.4.1" },
+      { "id": "idaq", "name": "Interim Development Assessment Questionnaire (IDAQ)", "months": [18], "source": "WCV 3.8.4.2" }
+    ],
+    "scoring": {
+      "mchat_r": [
+        { "score": [0, 2], "risk": "low", "action": "If screened at 18 months, re-screen at 24 months" },
+        { "score": [3, 7], "risk": "moderate", "action": "Refer to neurodevelopment clinic and speech therapy within 4 weeks; PHC follow-up after 1 month" },
+        { "score": [8, 20], "risk": "high", "action": "Refer to neurodevelopment clinic and speech therapy within 2 weeks; PHC follow-up after 1 month" }
+      ],
+      "idaq": "Refer to pediatric neurologist or neurodevelopment clinic if Q1 is 'Yes' or any of Q2-Q6 is 'No'.",
+      "cbc": "Hemoglobin below 11 g/dL (under 6 years) -> further evaluation.",
+      "source": "WCV App. 5.1, App. 5.2, 3.6.3"
+    },
+    "idaq_questions": [
+      { "n": 1, "en": "Do you have any concerns regarding the development of your child?", "ar": "هل لديك أي مخاوف بشأن نمو طفلك؟", "refer_if": "yes" },
+      { "n": 2, "en": "Does your child walk alone without holding onto anything?", "refer_if": "no" },
+      { "n": 3, "en": "Does your child pick up small objects using their thumb and index finger?", "refer_if": "no" },
+      { "n": 4, "en": "Does your child say at least 6 different words, other than names?", "refer_if": "no" },
+      { "n": 5, "en": "Does your child copy you if you do something simple?", "refer_if": "no" },
+      { "n": 6, "en": "Does your child look at you when you call their name?", "ar": "هل يستجيب الطفل عند مناداته باسمه؟", "refer_if": "no" }
+    ],
+    "closed_loop_timelines": {
+      "initial_followup_referral_within_days_of_result": 7,
+      "specialist_evaluation_within_weeks": [2, 4],
+      "source": "WCV 3.9.1.3, 3.9.1.4"
+    },
+    "counseling_topics": ["Breastfeeding", "Sleeping pattern", "Oral hygiene", "General safety", "Nutrition", "Vitamin D supplement", "Secondhand smoke prevention", "Physical activity", "Injury prevention", "SIDS prevention (up to 6 months)"],
+    "vitamin_d": { "1_to_12_months_iu": 400, "12_months_to_6_years_iu": 600, "source": "WCV 3.8.2" },
+    "refusal_rule": "If a parent or guardian declines screening, inform them of potential consequences and document the refusal in the child's record (WCV 4.2.1).",
+    "kpis": [
+      { "id": "uptake_by_age", "definition": "Children who attended the age-appropriate visit, per age category" },
+      { "id": "cbc_uptake", "definition": "Children at 12, 15, 18 months with CBC done / attending" },
+      { "id": "mchat_uptake_18", "definition": "M-CHAT-R done at 18 months / attending", "target": "100%" },
+      { "id": "mchat_uptake_24", "definition": "M-CHAT-R done at 24 months / attending", "target": "100%" },
+      { "id": "mchat_abnormal_referred", "definition": "Abnormal M-CHAT-R referred / abnormal M-CHAT-R", "target": "100%" },
+      { "id": "idaq_uptake_18", "definition": "IDAQ done at 18 months / attending", "target": "100%" },
+      { "id": "idaq_abnormal_referred", "definition": "Abnormal IDAQ referred / abnormal IDAQ", "target": "100%" }
+    ],
+    "kpi_source": "WCV 5.1",
+    "insurance": "UAE nationals: Thiqa preventive care; non-nationals: per policy schedule of benefits (WCV 3.10.1)."
+  }
+}
