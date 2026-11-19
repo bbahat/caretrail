@@ -1,2 +1,12 @@
-{ "name": "caretrail", "version": "0.1.0", "private": true, "type": "module", "license": "Apache-2.0",
-  "scripts": { "test": "node --test" } }
+{
+  "name": "caretrail",
+  "version": "0.2.0",
+  "description": "Family screening passport, clinician review and adaptive population outreach for Abu Dhabi's IFHAS and Well-Child programs. FHIR R4, synthetic data.",
+  "type": "module",
+  "license": "Apache-2.0",
+  "engines": { "node": ">=22.5" },
+  "scripts": {
+    "start": "node server/index.mjs",
+    "test": "node --test"
+  }
+}

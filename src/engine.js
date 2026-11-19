@@ -184,6 +184,11 @@ function evaluateAdultPackage(pkg, p, ref, rules) {
       return { ...base, status: "open_loop", tier: 1, decision: "clinical", specialist, source: "IFHAS 4.9.3, App. 8",
         reasons: [{ code: "referral_not_completed", date: ref_.made_on, specialist }] };
     }
+    if (ref_.made && !ref_.completed) {
+      // Referral made and still within the expected window: the next step is the specialist visit.
+      return { ...base, status: "referral_pending", tier: 2, decision: "clinical", specialist: ref_.specialist || specialist, source: "IFHAS 4.9.3, App. 8",
+        reasons: [{ code: "referral_made", date: ref_.made_on, specialist: ref_.specialist || specialist, by: ref_.requester || null }] };
+    }
   }
 
   const interval = intervalYears(pkg, rec);
@@ -297,12 +302,17 @@ function evaluateChild(p, ref, rules) {
   }
 
   // Open loops from child screening results.
-  const openLoop = (key, title, r, limitDays, specialist, source) => {
+  const openLoop = (key, title, r, limitDays, specialist, source, resultKey = key) => {
     const ref_ = r.referral || {};
     const anchor = d(ref_.made ? ref_.made_on : r.done_on);
     if (ref_.completed) return;
-    if (days(anchor, ref) <= limitDays) return;
-    items.push({ id: `${p.id}:${key}`, personId: p.id, program: "WCV", key, title, status: "open_loop", tier: 1,
+    if (days(anchor, ref) <= limitDays) {
+      if (ref_.made) items.push({ id: `${p.id}:${key}`, personId: p.id, program: "WCV", key, resultKey, title, status: "referral_pending", tier: 2,
+        decision: "clinical", specialist: ref_.specialist || specialist, source, factors: [],
+        reasons: [{ code: "referral_made", date: iso(anchor), specialist: ref_.specialist || specialist, by: ref_.requester || null }], priority: 9 });
+      return;
+    }
+    items.push({ id: `${p.id}:${key}`, personId: p.id, program: "WCV", key, resultKey, title, status: "open_loop", tier: 1,
       decision: "clinical", specialist, source, factors: [],
       reasons: [{ code: ref_.made ? "referral_not_completed" : "abnormal_no_referral", date: iso(anchor), specialist, limit: limitDays % 7 === 0 && limitDays > 7 ? `${limitDays / 7} weeks` : `${limitDays} days` }],
       priority: 9 });
@@ -311,14 +321,14 @@ function evaluateChild(p, ref, rules) {
     const r = res[`mchat_r_${mm}`];
     if (r && r.score >= 3) {
       const limit = r.score >= 8 ? 14 : 28;
-      openLoop(`mchat_${mm}`, `Autism screening follow-up (${mm} months)`, r, limit, "Child neurodevelopment clinic and speech therapy", "WCV App. 5.1");
+      openLoop(`mchat_${mm}`, `Autism screening follow-up (${mm} months)`, r, limit, "Child neurodevelopment clinic and speech therapy", "WCV App. 5.1", `mchat_r_${mm}`);
     }
   }
   if (res.idaq_18?.positive) openLoop("idaq_18", "Development screening follow-up", res.idaq_18, 28, "Pediatric neurologist or neurodevelopment clinic", "WCV 3.8.4.2");
   if (res.cbc && res.cbc.hb_g_dl < 11) openLoop("cbc", "Anemia follow-up", res.cbc, 7, "Pediatrician", "WCV 3.6.3, 3.9.1.3");
   for (const mm of [48, 60, 72]) {
     const r = res[`hearing_pta_${mm}`];
-    if (r && r.passed === false) openLoop(`hearing_${mm}`, "Hearing follow-up", r, 7, "ENT / audiology", "WCV 3.3.4, 3.9.1.3");
+    if (r && r.passed === false) openLoop(`hearing_${mm}`, "Hearing follow-up", r, 7, "ENT / audiology", "WCV 3.3.4, 3.9.1.3", `hearing_pta_${mm}`);
   }
   if (p.newborn_hearing && p.newborn_hearing !== "passed" && !res.hearing_infant) {
     items.push({ id: `${p.id}:hearing_infant`, personId: p.id, program: "WCV", key: "hearing_infant", title: "Hearing test (missed at birth)",
