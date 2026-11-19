@@ -1,22 +1,10 @@
----
-title: CareTrail
-emoji: 🩺
-colorFrom: green
-colorTo: blue
-sdk: docker
-app_port: 7860
-pinned: false
-license: apache-2.0
-short_description: Family screening passport, FHIR R4 backend
----
-
 # CareTrail
 
 A family screening passport, a clinician review console and an adaptive population outreach engine for Abu Dhabi's preventive screening programs (IFHAS adult screening and Well-Child visits).
 Built by team **FedTrail** for the Future Health Digital Innovation Challenge, challenge statement *[Population Health] Precision Prevention and Screening*.
 
 **Live app:** https://bbahat.github.io/caretrail/ (opens the live server; no password, pick a demo role)
-**Server:** https://caretrail.onrender.com · **FHIR R4:** https://caretrail.onrender.com/fhir/metadata
+**Server:** https://caretrail-h5mt.onrender.com · **FHIR R4:** https://caretrail-h5mt.onrender.com/fhir/metadata
 
 Free hosting sleeps when idle; the first load can take up to a minute.
 
