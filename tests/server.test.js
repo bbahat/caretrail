@@ -89,3 +89,27 @@ test("adaptive outreach learns: after several weeks it beats SMS-for-everyone", 
   assert.ok(ct3 > base3, `${ct3} vs ${base3}`);
   assert.ok(last.contacted > 0);
 });
+
+test("visitor reset puts the demo families back to their starting state", () => {
+  const mariam = as("family-DEMO-1");
+  const [slot] = ct.slots(mariam, "screening");
+  ct.setConsent(mariam, "DEMO-1-01", "wearables", false);
+  ct.book(mariam, { slotId: slot.id, patient: "DEMO-1-03", itemId: "DEMO-1-03:dexa", title: "DEXA" });
+  ct.resetDemo("test");
+  const v = ct.familyView(mariam);
+  assert.equal(v.members[0].consent.wearables, true);
+  assert.equal(v.appointments.length, 0);
+  assert.equal(ct.store.get("Slot", slot.id).status, "free");
+  assert.ok(ct.hh("DEMO-1").suggestions.every((s) => s.status === "pending"));
+  assert.equal(ct.familyView(mariam).members.find((m) => m.id === "DEMO-1-02").items.find((i) => i.key === "major").status, "open_loop");
+});
+
+test("family export is a FHIR Bundle that respects consent", () => {
+  const mariam = as("family-DEMO-1");
+  ct.setConsent(mariam, "DEMO-1-02", "genomic", false);
+  const b = ct.exportFamily(mariam);
+  assert.equal(b.resourceType, "Bundle");
+  assert.ok(b.entry.some((e) => e.resource.resourceType === "Patient"));
+  assert.ok(!b.entry.some((e) => e.resource.id?.startsWith("gen-DEMO-1-02")));
+  ct.setConsent(mariam, "DEMO-1-02", "genomic", true);
+});

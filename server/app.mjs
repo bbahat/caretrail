@@ -34,8 +34,12 @@ export const PERSONAS = [
 ];
 
 export class CareTrail {
-  constructor({ dbPath = process.env.DB_PATH || "/tmp/caretrail.db" } = {}) {
+  constructor({ dbPath = process.env.DB_PATH || "/tmp/caretrail.db", simDate = process.env.SIM_DATE } = {}) {
     this.dbPath = dbPath;
+    // The simulation date follows the real date (never earlier than the data's
+    // reference date), so due dates and bookable slots look current to visitors.
+    const today = new Date(Date.now() + 4 * 3600e3).toISOString().slice(0, 10); // UAE date
+    this.simDate = simDate || (today > "2026-11-15" ? today : "2026-11-15");
     this.listeners = new Set();
     this.boot();
   }
@@ -63,8 +67,12 @@ export class CareTrail {
   }
 
   #seed() {
-    const s = buildSeed();
+    const s = buildSeed(this.simDate);
     this.store.putMany(s.resources, { now: `${s.ref}T06:00:00.000Z` });
+    // Keep the demo households' starting state so they can be reset for each visitor.
+    const demo = new Set(s.demoIds);
+    const pids = new Set(s.resources.filter((r) => r.resourceType === "Group" && demo.has(r.id)).flatMap((g) => g.member.map((m) => m.entity.reference.split("/")[1])));
+    this.store.kv("demo_seed", s.resources.filter((r) => (r.resourceType === "Group" && demo.has(r.id)) || pids.has(r.id) && r.resourceType === "Patient" || pids.has((r.subject || r.patient || r.beneficiary)?.reference?.split("/")[1])));
     this.store.kv("reference_date", s.ref);
     this.store.kv("households", s.households);
     const ins = this.store.db.prepare("INSERT INTO ops (person, household, json) VALUES (?, ?, ?)");
@@ -85,6 +93,37 @@ export class CareTrail {
   }
 
   close() { this.store.db.close(); }
+
+  // Put the three demo families back to their starting state (bookings,
+  // consents, referrals, decisions, snoozes). Program-level state and the
+  // append-only log are kept: the reset itself is logged.
+  resetDemo(reason = "visitor") {
+    const seed = this.store.kv("demo_seed") || [];
+    const seedKeys = new Set(seed.map((r) => `${r.resourceType}/${r.id}`));
+    const demoIds = this.households.filter((h) => h.demo).map((h) => h.id);
+    const pids = new Set();
+    for (const hh of demoIds) {
+      for (const r of this.store.household(hh)) {
+        if (r.resourceType === "Patient") pids.add(r.id);
+        if (seedKeys.has(`${r.resourceType}/${r.id}`) || r.resourceType === "AuditEvent") continue;
+        if (r.resourceType === "Appointment" && r.status === "booked") {
+          const slot = this.store.get("Slot", r.slot[0].reference.split("/")[1]);
+          if (slot) this.store.put({ ...slot, status: "free" });
+        }
+        this.store.delete(r.resourceType, r.id);
+      }
+    }
+    this.store.putMany(seed);
+    for (const id of Object.keys(this.decisions)) if (pids.has(id.replace(/^sug-/, "").replace(/-(hba1c_recheck|bp_review|lipid_review)$/, ""))) delete this.decisions[id];
+    for (const id of Object.keys(this.snoozes)) if (pids.has(id.split(":")[0])) delete this.snoozes[id];
+    this.store.kv("suggestion_decisions", this.decisions);
+    this.store.kv("snoozes", this.snoozes);
+    for (const hh of demoIds) this.refresh(hh, { quiet: true });
+    this.demoDirty = false;
+    this.log({ hh: "POP", subject: null, actor: "actor_system", action: "demo_reset", purpose: "purpose_demo", detail: reason });
+    this.emit({ type: "reset" });
+    return { ok: true };
+  }
 
   // ---------------------------------------------------------------- auth
 
@@ -109,6 +148,7 @@ export class CareTrail {
 
   emit(event) { for (const fn of this.listeners) fn(event); }
   log(entry) {
+    if (entry.hh && entry.hh.startsWith("DEMO-")) { this.demoDirty = true; this.lastDemoWrite = Date.now(); }
     const e = this.ledger.append({ ts: new Date().toISOString(), data: [], ...entry });
     this.store.put({
       resourceType: "AuditEvent",
@@ -279,6 +319,26 @@ export class CareTrail {
     if (slot) this.store.put({ ...slot, status: "free" });
     this.log({ hh: user.hh, subject: pid, actor: `person:${user.sub}`, action: "booking_cancelled", purpose: "purpose_booking", key: getExt(a, "item-id")?.split(":")[1] });
     return this.refresh(user.hh);
+  }
+
+  // Data portability: the family's own record as a FHIR R4 Bundle.
+  exportFamily(user) {
+    const h = this.hh(user.hh);
+    const priv = new Set(h.record.members.filter((p) => p.kind === "adult" && p.id !== user.sub && p.consent?.share_with_household === false).map((p) => p.id));
+    const consentOk = (r) => {
+      const cat = (r.extension || []).find((e) => e.url.endsWith("data-category"))?.valueString;
+      if (!cat) return true;
+      const p = h.record.members.find((m) => `Patient/${m.id}` === r.subject?.reference);
+      return !!p?.consent?.[cat === "genomic" ? "genomic" : "wearables"];
+    };
+    const list = this.store.household(user.hh).filter((r) => {
+      if (r.resourceType === "AuditEvent") return false;
+      const pid = r.resourceType === "Patient" ? r.id : (r.subject || r.patient || r.beneficiary || r.participant?.find((x) => x.actor?.reference?.startsWith("Patient/"))?.actor)?.reference?.split("/")[1];
+      if (pid && priv.has(pid) && r.resourceType !== "Patient") return false;
+      return r.resourceType !== "Observation" || consentOk(r);
+    });
+    this.log({ hh: user.hh, subject: user.sub, actor: `person:${user.sub}`, action: "export", purpose: "purpose_consent", data: ["demographics", "screening_history", "clinical"], detail: `${list.length} FHIR resources` });
+    return { resourceType: "Bundle", type: "collection", timestamp: new Date().toISOString(), total: list.length, entry: list.map((r) => ({ fullUrl: `urn:caretrail:${r.resourceType}/${r.id}`, resource: r })) };
   }
 
   // ---------------------------------------------------------------- clinician

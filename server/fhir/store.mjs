@@ -31,6 +31,7 @@ export class FhirStore {
       put: this.db.prepare(`INSERT INTO resources (type, id, household, patient, version, updated, json) VALUES (?, ?, ?, ?, ?, ?, ?)
         ON CONFLICT(type, id) DO UPDATE SET household = excluded.household, patient = excluded.patient, version = excluded.version, updated = excluded.updated, json = excluded.json`),
       byHousehold: this.db.prepare("SELECT json FROM resources WHERE household = ?"),
+      del: this.db.prepare("DELETE FROM resources WHERE type = ? AND id = ?"),
       byPatient: this.db.prepare("SELECT json FROM resources WHERE type = ? AND patient = ?"),
       byType: this.db.prepare("SELECT json FROM resources WHERE type = ?"),
       count: this.db.prepare("SELECT type, COUNT(*) AS n FROM resources GROUP BY type"),
@@ -74,6 +75,8 @@ export class FhirStore {
       throw e;
     }
   }
+
+  delete(type, id) { this.q.del.run(type, id); }
 
   get(type, id) {
     const row = this.q.get.get(type, id);

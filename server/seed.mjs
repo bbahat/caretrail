@@ -92,10 +92,10 @@ function schedulingResources(ref) {
   return out;
 }
 
-export function buildSeed() {
+export function buildSeed(refOverride) {
   const POP = loadPopulation();
   const DEMO = JSON.parse(readFileSync(dataUrl("demo_families.json")));
-  const ref = DEMO.meta.reference_date;
+  const ref = refOverride || DEMO.meta.reference_date;
   const r = rng(2026);
   const households = [];
   const ops = [];
@@ -123,6 +123,7 @@ export function buildSeed() {
     households.push({ id: hh.id, demo: !!src.demo });
     resources.push(...toFhir(hh));
   }
+  const demoIds = new Set(DEMO.households.map((h) => h.id));
   resources.push(...schedulingResources(ref));
-  return { ref, households, ops, resources };
+  return { ref, households, ops, resources, demoIds: [...demoIds] };
 }

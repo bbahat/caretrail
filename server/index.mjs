@@ -12,7 +12,7 @@ import { importFromFhir } from "./fhir/client.mjs";
 const PORT = Number(process.env.PORT || 7860);
 const ROOT = fileURLToPath(new URL("..", import.meta.url));
 const WEB = join(ROOT, "web");
-const MIME = { ".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".mjs": "text/javascript; charset=utf-8", ".css": "text/css; charset=utf-8", ".json": "application/json", ".svg": "image/svg+xml", ".png": "image/png", ".ico": "image/x-icon" };
+const MIME = { ".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".mjs": "text/javascript; charset=utf-8", ".css": "text/css; charset=utf-8", ".json": "application/json", ".svg": "image/svg+xml", ".png": "image/png", ".ico": "image/x-icon", ".webmanifest": "application/manifest+json" };
 
 let ct = new CareTrail();
 console.log(`CareTrail ready in ${ct.bootMs} ms: ${ct.households.length} households, ledger ${ct.ledger.entries.length} entries`);
@@ -157,10 +157,21 @@ const routes = {
     for (const fn of sseClients) fn({ type: "reset" });
     return { ok: true, boot_ms: ct.bootMs };
   },
+  "POST /api/demo/reset": () => {
+    if (Date.now() - (lastVisitorReset || 0) < 5000) throw Object.assign(new Error("Just reset. Try again in a few seconds."), { status: 429 });
+    lastVisitorReset = Date.now();
+    return ct.resetDemo("visitor");
+  },
+  "GET /api/family/export": (req, url, user) => ct.exportFamily(need(user, "family")),
   "GET /api/ledger": (req, url, user) => ct.ledgerFor(need(user), Number(url.searchParams.get("from") || 0)),
 };
 
 const sseClients = new Set();
+let lastVisitorReset = 0;
+// Reset the demo families after 20 quiet minutes, so each reviewer starts clean.
+setInterval(() => {
+  if (ct.demoDirty && Date.now() - (ct.lastDemoWrite || 0) > 20 * 60 * 1000) ct.resetDemo("automatic after 20 idle minutes");
+}, 60 * 1000).unref();
 function sse(req, res, url) {
   const user = auth(req, url);
   if (!user) return json(res, 401, { error: "Sign in first" });

@@ -315,3 +315,5 @@ th.n, td.n { text-align: end; font-variant-numeric: tabular-nums; }
 .wchart-s { min-width: 460px; }
 .btn[disabled] { opacity: 0.5; cursor: default; }
 @media (max-width: 900px) { .pick-grid, .sug-grid, .b-grid { grid-template-columns: minmax(0, 1fr); } .sug-body { grid-template-columns: minmax(0, 1fr); } }
+.fresh { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+a { color: var(--brand); }

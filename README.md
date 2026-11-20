@@ -42,7 +42,7 @@ FHIR R4 store (SQLite) ──► mapping (consent enforced) ──► guideline 
 ## Run it
 
 ```bash
-npm test                  # 25 tests: engine, FHIR round trip, consent, ledger, server rules
+npm test                  # 29 tests: engine, FHIR round trip, consent, ledger, server rules
 npm start                 # http://localhost:7860
 docker build -t caretrail . && docker run -p 7860:7860 caretrail
 # Render: New > Web Service > this repo > Docker > Free

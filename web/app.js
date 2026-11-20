@@ -79,6 +79,14 @@ Object.assign(STR.en, {
   yes_reset: "Yes, reset",
   h4_live: "Live server: Node.js with a FHIR R4 store on SQLite. Families, clinicians and the program team sign in with separate roles; access rules, consent and small-cell suppression are enforced on the server.",
   fhir_link: "FHIR R4 endpoint",
+  fresh: "Start fresh",
+  fresh_d: "Reviewers share one demo. This puts the three demo families back to their starting state (it also happens after 20 quiet minutes).",
+  fresh_done: "Demo families reset. You start from a clean state.",
+  sim_today: "Today in the simulation",
+  export: "Download our record (FHIR R4)",
+  export_d: "Your household's record as a standard FHIR R4 Bundle, the format hospitals and Malaffi use. Data you have not shared is left out.",
+  install: "Install app",
+  pilot_login: "In a pilot, people sign in with UAE PASS and CareTrail runs as a module inside Sahatna.",
 });
 Object.assign(STR.ar, {
   live: "خادم مباشر · بيانات اصطناعية",
@@ -109,6 +117,14 @@ Object.assign(STR.ar, {
   p_live_title: "الفحص السكاني في أبوظبي (بيانات اصطناعية)",
   b_title: "التواصل التكيفي",
   reset: "إعادة ضبط البيانات التجريبية",
+  fresh: "ابدأ من جديد",
+  fresh_d: "يتشارك المراجعون عرضًا واحدًا. هذا يعيد العائلات التجريبية الثلاث إلى حالتها الأولى (ويحدث تلقائيًا بعد 20 دقيقة من الهدوء).",
+  fresh_done: "تمت إعادة العائلات التجريبية. تبدأ من حالة نظيفة.",
+  sim_today: "اليوم في المحاكاة",
+  export: "تنزيل سجلنا (FHIR R4)",
+  export_d: "سجل أسرتك بصيغة FHIR R4 القياسية التي تستخدمها المستشفيات وملفّي. البيانات التي لم تشاركها لا تُضمَّن.",
+  install: "تثبيت التطبيق",
+  pilot_login: "في التجربة الفعلية يسجّل الناس الدخول عبر الهوية الرقمية UAE PASS ويعمل كير ترِيل كوحدة داخل تطبيق صحتنا.",
 });
 
 // ---------------------------------------------------------------- state
@@ -261,6 +277,7 @@ function header() {
     <div class="right">
       <span class="badge-syn">${t("live")}</span>
       ${state.user ? `<label class="who-pick"><span class="vh">${t("switch_role")}</span><select id="role-switch" data-act="switch" aria-label="${t("switch_role")}">${state.meta.personas.map((p) => `<option value="${p.id}" ${p.id === state.user.id ? "selected" : ""}>${esc(nm(p.name))} · ${t(`role_${p.role}`)}</option>`).join("")}</select></label>` : ""}
+      ${installEvt ? `<button class="lang" data-act="install">${t("install")}</button>` : ""}
       <button class="lang" data-act="lang" lang="${state.lang === "ar" ? "en" : "ar"}">${t("lang_switch")}</button>
     </div>
   </header>`;
@@ -271,7 +288,9 @@ function picker() {
   return `<section class="picker">
     <h1>${t("pick_title")}</h1><p class="muted">${t("pick_sub")}</p>
     <div class="pick-grid">${groups.map((g) => `<div class="pick-col"><h2>${t(`role_${g}`)}</h2>${state.meta.personas.filter((p) => p.role === g).map((p) => `<button class="pick" data-act="signin" data-p="${p.id}"><b>${esc(nm(p.name))}</b><span>${esc(p.label)}</span></button>`).join("")}</div>`).join("")}</div>
-    <p class="muted small">${t("h4_live")} <a href="/fhir/metadata" target="_blank" rel="noopener">${t("fhir_link")}</a></p>
+    <div class="fresh"><button class="btn" data-act="fresh">${t("fresh")}</button><span class="muted small">${t("fresh_d")}</span></div>
+    <p class="muted small">${t("h4_live")} ${t("pilot_login")} <a href="/fhir/metadata" target="_blank" rel="noopener">${t("fhir_link")}</a></p>
+    <p class="muted small">${t("sim_today")}: ${fmtDate(REF())}</p>
   </section>`;
 }
 
@@ -409,7 +428,8 @@ function privacy(f) {
     ${f.members.map((p) => `<section class="member consent"><header><span class="avatar">${esc(nm(p.name)).slice(0, 1)}</span><div><h3>${esc(nm(p.name))}</h3><p class="muted small">${t(`role.${roleOf(p)}`)} · ${ageLabel(p)}</p></div></header>
       ${toggle(p, "program_screening", true)}
       ${p.kind === "adult" ? toggle(p, "genomic") + toggle(p, "wearables") + (p.id !== f.manager ? toggle(p, "share_with_household") : "") : `<p class="muted small">${t("child_always")}</p>`}
-    </section>`).join("")}`;
+    </section>`).join("")}
+    <section class="member"><h3>${t("export")}</h3><p class="muted small">${t("export_d")}</p><div class="acts"><button class="btn" data-act="export">${t("export")}</button></div></section>`;
 }
 
 // ---------------------------------------------------------------- ledger view
@@ -420,6 +440,7 @@ const ACT = {
     program_view: "Viewed screening status", program_open: "Opened record for outreach", declined: "Postponed {what}", consent: "Consent changed: {what} {state}",
     booking: "Booking: {what}", booking_cancelled: "Booking cancelled: {what}", snoozed: "Reminder snoozed: {what}",
     suggestion_approved: "Clinician approved: {what}", suggestion_rejected: "Clinician rejected: {what}", outreach_week: "Outreach week run",
+    demo_reset: "Demo families reset", export: "Record downloaded (FHIR Bundle)", actor_system: "CareTrail system", purpose_demo: "Fresh start for the next reviewer",
     actor_lab: "Network laboratory (simulated)", actor_adphc: "ADPHC screening team", actor_clinic: "Primary care clinic", actor_clinician: "Clinician",
     purpose_result: "Deliver result to the record", purpose_referral: "Refer for follow-up", purpose_program: "Close an open follow-up", purpose_consent: "Person's own choice",
     purpose_booking: "Book a screening", purpose_review: "Clinical review of a trend suggestion",
@@ -429,6 +450,7 @@ const ACT = {
     program_view: "الاطلاع على حالة الفحص", program_open: "فتح السجل للتواصل", declined: "تأجيل {what}", consent: "تغيير الموافقة: {what} {state}",
     booking: "حجز: {what}", booking_cancelled: "إلغاء حجز: {what}", snoozed: "تأجيل التذكير: {what}",
     suggestion_approved: "وافق الطبيب: {what}", suggestion_rejected: "رفض الطبيب: {what}", outreach_week: "أسبوع تواصل",
+    demo_reset: "إعادة ضبط العائلات التجريبية", export: "تنزيل السجل (FHIR)", actor_system: "نظام كير ترِيل", purpose_demo: "بداية نظيفة للمراجع التالي",
     actor_lab: "مختبر الشبكة (محاكاة)", actor_adphc: "فريق الفحص في مركز أبوظبي للصحة العامة", actor_clinic: "عيادة الرعاية الأولية", actor_clinician: "الطبيب",
     purpose_result: "إضافة النتيجة إلى السجل", purpose_referral: "التحويل للمتابعة", purpose_program: "إغلاق متابعة مفتوحة", purpose_consent: "اختيار الشخص نفسه",
     purpose_booking: "حجز فحص", purpose_review: "مراجعة سريرية لاقتراح مبني على الاتجاه",
@@ -473,7 +495,8 @@ function tryPanel() {
     ? ["افتح «لماذا؟» على متابعة خالد: السبب والمصدر ومن يقرر.", "احجز موعدًا: يُنشأ موعد FHIR حقيقي وتراه لوحة البرنامج فورًا.", "بدّل الدور إلى الطبيب ووافق على اقتراح الكوليسترول لخالد، ثم عد إلى مريم.", "في «سجل البيانات» تحقق من السجل ثم حاكِ التلاعب.", "بدّل إلى فريق البرنامج وشغّل أسبوع تواصل."]
     : ["Open “Why this?” on Khalid's open follow-up: reason, source, who decides.", "Book a time: a real FHIR Appointment is created and the program view sees it at once.", "Switch role to the clinician, approve Khalid's cholesterol suggestion, then switch back to Mariam.", "In Data log, verify the log, then simulate tampering.", "Switch to the program team and run a week of adaptive outreach."];
   return `<aside class="try"><h3>${state.lang === "ar" ? "جرّبه في دقيقتين" : "Try it in two minutes"}</h3><ol>${steps.map((s) => `<li>${s}</li>`).join("")}</ol>
-  <p class="muted small">${state.lang === "ar" ? "تاريخ المرجع" : "Reference date"}: ${fmtDate(REF())} · <a href="/fhir/metadata" target="_blank" rel="noopener">${t("fhir_link")}</a></p></aside>`;
+  <div class="fresh"><button class="btn small" data-act="fresh">${t("fresh")}</button></div>
+  <p class="muted small">${t("sim_today")}: ${fmtDate(REF())} · <a href="/fhir/metadata" target="_blank" rel="noopener">${t("fhir_link")}</a></p></aside>`;
 }
 
 function familyView() {
@@ -640,7 +663,7 @@ function howView() {
   const box = (n, title, body) => `<div class="hbox"><span class="hn">${n}</span><h3>${title}</h3><p>${body}</p></div>`;
   return `<div class="how"><h2>${t("h_title")}</h2><p class="muted">${t("h_sub")}</p>
     <div class="hgrid">${box(1, t("h1_t"), t("h1_b"))}<div class="hsplit">${box(2, t("h2_t"), t("h2_b"))}${box(3, t("h3_t"), t("h3_b"))}</div>${box(4, t("h4_t"), t("h4_b"))}</div>
-    <p>${t("h4_live")}</p><p>${t("h_data")}</p><p class="muted">${t("h_limits")}</p>
+    <p>${t("h4_live")} ${t("pilot_login")}</p><p>${t("h_data")}</p><p class="muted">${t("h_limits")}</p>
     <p><a href="/fhir/metadata" target="_blank" rel="noopener">${t("fhir_link")}</a> · <a href="https://github.com/bbahat/caretrail" target="_blank" rel="noopener">GitHub</a></p></div>`;
 }
 
@@ -675,6 +698,10 @@ function modal() {
 }
 
 // ---------------------------------------------------------------- render + events
+
+let installEvt = null;
+window.addEventListener("beforeinstallprompt", (e) => { e.preventDefault(); installEvt = e; render(); });
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js").catch(() => {});
 
 const root = document.getElementById("app");
 let tipEl;
@@ -715,6 +742,14 @@ root.addEventListener("click", (ev) => {
     if (act === "lang") { state.lang = state.lang === "en" ? "ar" : "en"; store.set("ct_lang", state.lang); }
     else if (act === "view") { state.view = el.dataset.v; window.scrollTo(0, 0); }
     else if (act === "signin") await signIn(el.dataset.p);
+    else if (act === "fresh") { await api("/api/demo/reset", { method: "POST" }); state.firstCheckpoint = {}; state.ledger = {}; if (state.user) await load(); toast(t("fresh_done")); }
+    else if (act === "install") { installEvt.prompt(); installEvt = null; }
+    else if (act === "export") {
+      const b = await api("/api/family/export");
+      const url = URL.createObjectURL(new Blob([JSON.stringify(b, null, 2)], { type: "application/fhir+json" }));
+      const aEl = document.createElement("a"); aEl.href = url; aEl.download = `caretrail-${state.user.hh}-fhir.json`; document.body.appendChild(aEl); aEl.click(); aEl.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 2000);
+    }
     else if (act === "tab") { state.tab = el.dataset.v; if (state.tab === "log") await loadLedger(); }
     else if (act === "more") state.showAll = !state.showAll;
     else if (act === "why") state.open[el.dataset.id] = !state.open[el.dataset.id];
