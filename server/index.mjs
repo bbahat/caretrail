@@ -216,3 +216,8 @@ const server = createServer(async (req, res) => {
   }
 });
 server.listen(PORT, () => console.log(`CareTrail listening on http://localhost:${PORT}`));
+
+// Keep the free Render instance awake: ping our own public URL every 10 minutes.
+if (process.env.RENDER_EXTERNAL_URL) {
+  setInterval(() => { fetch(`${process.env.RENDER_EXTERNAL_URL}/healthz`).catch(() => {}); }, 10 * 60 * 1000).unref();
+}
